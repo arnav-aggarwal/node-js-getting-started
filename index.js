@@ -24,7 +24,7 @@ app.get('/times', function(request, response) {
   var result = '';
   var times = process.env.TIMES || 5;
   for(let i = 0; i < times; i++) {
-    result += i + '';
+    result += i + ' ';
   }
 
   response.send(result);
