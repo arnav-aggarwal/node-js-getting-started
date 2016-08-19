@@ -1,17 +1,13 @@
 'use strict';
 
-var cool = require('cool-ascii-faces');
-var express = require('express');
-var pg = require('pg');
-
-var app = express();
-
-const wrapText = text => `<html><pre>${text}</pre></html>`;
-
-const makeLink = (link, name) => `<html><a href='${link}'>${name}</a></html>`;
+const cool = require('cool-ascii-faces');
+const express = require('express');
+const pg = require('pg');
+const app = express();
+const wrapText = text => `<pre>${text}</pre>`;
+const makeLink = (link, name) => `<a href='${link}'>${name}</a>`;
 
 app.set('port', (process.env.PORT || 5000));
-
 app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
@@ -32,15 +28,13 @@ app.get('/db', function(request, response){
   });
 });
 
-app.get('/', function(request, response) {
-  response.render('pages/index');
-});
+app.get('/', (request, response) => response.render('pages/index'));
 
 app.get('/home', function(request, response){
   const numFaces = 20;
   const gitAnchor = makeLink('https://github.com/arnav-aggarwal', 'Git Profile');
   const linkedInAnchor = makeLink('https://www.linkedin.com/in/arnavaggarwal', 'LinkedIn')
-  const myInfo = 
+  const myInfo =
 `Arnav Aggarwal's Home Page
 
 arnavaggrwl@gmail.com
@@ -71,17 +65,14 @@ ${linkedInAnchor}
   }
 
   const finalText = myInfo + '\n' + coolFaces;
-  
   response.send(wrapText(finalText));
 });
 
-app.get('/cool', function(request, response) {
-  response.send(cool());
-});
+app.get('/cool', (request, response) => response.send(cool()));
 
 app.get('/times', function(request, response) {
-  var result = '';
-  var times = process.env.TIMES || 5;
+  let result = '';
+  const times = process.env.TIMES || 5;
   for(let i = 0; i < times; i++) {
     result += i + ' ';
   }
