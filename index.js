@@ -2,10 +2,13 @@
 
 var cool = require('cool-ascii-faces');
 var express = require('express');
-var app = express();
 var pg = require('pg');
 
+var app = express();
+
 const wrapText = text => `<html><pre>${text}</pre></html>`;
+
+const makeLink = (link, name) => `<html><a href='${link}'>${name}</a></html>`;
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -35,19 +38,21 @@ app.get('/', function(request, response) {
 
 app.get('/home', function(request, response){
   const numFaces = 20;
+  const gitAnchor = makeLink('https://github.com/arnav-aggarwal', 'Git Profile');
+  const linkedInAnchor = makeLink('https://www.linkedin.com/in/arnavaggarwal', 'LinkedIn')
   const myInfo = 
 `Arnav Aggarwal's Home Page
 
-email:      arnavaggrwl@gmail.com
-git:        https://github.com/arnav-aggarwal
-LinkedIn:   https://www.linkedin.com/in/arnavaggarwal
+arnavaggrwl@gmail.com
+${gitAnchor}
+${linkedInAnchor}
 `;
-
-  let coolFaces = '\n';
+  let coolFaces = '';
 
   for(let index = 0; index < numFaces; index++) {
     const face1 = cool();
     const face2 = cool();
+
     //normalize the number of spaces based on 1st face
     const numSpaces = 26 - face1.length;
 
