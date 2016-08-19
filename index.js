@@ -5,6 +5,8 @@ var express = require('express');
 var app = express();
 var pg = require('pg');
 
+const wrapText = text => `<html><pre>${text}</pre></html>`;
+
 app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
@@ -32,14 +34,23 @@ app.get('/', function(request, response) {
 });
 
 app.get('/home', function(request, response){
-  var textBody = '<html><pre>';
-  textBody += `Arnav Aggarwal's Home Page
+  const myInfo = 
+`Arnav Aggarwal's Home Page
 email:      arnavaggrwl@gmail.com
 git:        https://github.com/arnav-aggarwal
 LinkedIn:   https://www.linkedin.com/in/arnavaggarwal`;
-  textBody += '</pre></html>';
+
+  let coolFaces = '';
+
+  for(let index = 0; index < 5; index++) {
+    coolFaces += `${cool()}
+`;
+  }
+
+  const finalText = `${myInfo}
+${coolFaces}`;
   
-  response.send(textBody);
+  response.send(wrapText(finalText));
 });
 
 app.get('/cool', function(request, response) {
@@ -59,5 +70,4 @@ app.get('/times', function(request, response) {
 app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
-
 
