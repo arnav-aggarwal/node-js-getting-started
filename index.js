@@ -43,15 +43,29 @@ git:        https://github.com/arnav-aggarwal
 LinkedIn:   https://www.linkedin.com/in/arnavaggarwal
 `;
 
-  let coolFaces = '';
+  let coolFaces = '\n';
 
   for(let index = 0; index < numFaces; index++) {
-    coolFaces += `${cool()}
-`;
+    const face1 = cool();
+    const face2 = cool();
+    //normalize the number of spaces based on 1st face
+    const numSpaces = 26 - face1.length;
+
+    coolFaces += face1;
+    //add some spaces to sort-of center next face
+    for(let index = 0; index < numSpaces; index++){
+      coolFaces += ' ';
+    }
+
+    //only append a face if the first one is small
+    if(numSpaces > 4) {
+      coolFaces += face2;
+    }
+
+    coolFaces += '\n';
   }
 
-  const finalText = `${myInfo}
-${coolFaces}`;
+  const finalText = myInfo + '\n' + coolFaces;
   
   response.send(wrapText(finalText));
 });
