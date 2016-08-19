@@ -32,8 +32,14 @@ app.get('/', function(request, response) {
 });
 
 app.get('/home', function(request, response){
-  alert("Made it to home!");
-  response.redirect('/cool');
+  var textBody = '<html><pre>';
+  textBody += `Arnav Aggarwal's Home Page
+email:      arnavaggrwl@gmail.com
+git:        https://github.com/arnav-aggarwal
+LinkedIn:   https://www.linkedin.com/in/arnavaggarwal`;
+  textBody += '</pre></html>';
+  
+  response.send(textBody);
 });
 
 app.get('/cool', function(request, response) {
