@@ -34,15 +34,18 @@ app.get('/', function(request, response) {
 });
 
 app.get('/home', function(request, response){
+  const numFaces = 20;
   const myInfo = 
 `Arnav Aggarwal's Home Page
+
 email:      arnavaggrwl@gmail.com
 git:        https://github.com/arnav-aggarwal
-LinkedIn:   https://www.linkedin.com/in/arnavaggarwal`;
+LinkedIn:   https://www.linkedin.com/in/arnavaggarwal
+`;
 
   let coolFaces = '';
 
-  for(let index = 0; index < 5; index++) {
+  for(let index = 0; index < numFaces; index++) {
     coolFaces += `${cool()}
 `;
   }
