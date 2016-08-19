@@ -31,6 +31,11 @@ app.get('/', function(request, response) {
   response.render('pages/index');
 });
 
+app.get('/home', function(request, response){
+  alert("Made it to home!");
+  response.redirect('/cool');
+});
+
 app.get('/cool', function(request, response) {
   response.send(cool());
 });
